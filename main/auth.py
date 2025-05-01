@@ -1,15 +1,6 @@
 import sqlite3
 from getpass import getpass
-import hashlib
 from models import User
-
-def hash_password(password):
-    """Hash a password for storing."""
-    return hashlib.sha256(password.encode()).hexdigest()
-
-def verify_password(stored_password, provided_password):
-    """Verify a stored password against one provided by user"""
-    return stored_password == hashlib.sha256(provided_password.encode()).hexdigest()
 
 def register_user():
     """Register a new user."""
@@ -22,16 +13,14 @@ def register_user():
     if password != confirm_password:
         print("Error: Passwords don't match!")
         return None
-    
-    hashed_password = hash_password(password)
-    
+
     try:
         conn = sqlite3.connect('data/task_manager.db')
         cursor = conn.cursor()
         
         cursor.execute(
             "INSERT INTO users (username, password, email) VALUES (?, ?, ?)",
-            (username, hashed_password, email)
+            (username, password, email)
         )
         
         conn.commit()
@@ -63,7 +52,7 @@ def login_user():
         
         user_data = cursor.fetchone()
         
-        if user_data and verify_password(user_data[2], password):
+        if user_data and user_data[2] == password:
             print("Login successful!")
             return User(user_data[0], user_data[1], user_data[3], bool(user_data[4]))
         else:

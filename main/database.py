@@ -6,14 +6,15 @@ def create_connection():
     """Create a database connection to the SQLite database."""
     conn = None
     try:
-        # Create data directory if it doesn't exist
+        # Ensure the data directory exists
         if not os.path.exists('data'):
             os.makedirs('data')
-            
+        
+        # Connect to the SQLite database file
         conn = sqlite3.connect('data/task_manager.db')
         return conn
     except Error as e:
-        print(e)
+        print(f"Database connection error: {e}")
     
     return conn
 
@@ -42,9 +43,9 @@ def initialize_database():
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     title TEXT NOT NULL,
                     description TEXT,
-                    priority INTEGER DEFAULT 2,  # 1: High, 2: Medium, 3: Low
+                    priority INTEGER DEFAULT 2,  -- 1: High, 2: Medium, 3: Low
                     due_date TEXT,
-                    status TEXT DEFAULT 'Pending',  # Pending, In Progress, Completed
+                    status TEXT DEFAULT 'Pending',  -- Pending, In Progress, Completed
                     created_at TEXT DEFAULT CURRENT_TIMESTAMP,
                     user_id INTEGER NOT NULL,
                     project TEXT,
@@ -53,8 +54,9 @@ def initialize_database():
             ''')
             
             conn.commit()
+            print("Database initialized successfully.")
         except Error as e:
-            print(e)
+            print(f"Error during table creation: {e}")
         finally:
             conn.close()
     else:
