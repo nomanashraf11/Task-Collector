@@ -3,7 +3,6 @@ from getpass import getpass
 from models import User
 
 def register_user():
-    """Register a new user."""
     print("\n--- Register New User ---")
     username = input("Username: ")
     email = input("Email: ")
@@ -13,7 +12,6 @@ def register_user():
     if password != confirm_password:
         print("Error: Passwords don't match!")
         return None
-
     try:
         conn = sqlite3.connect('data/task_manager.db')
         cursor = conn.cursor()
@@ -35,8 +33,8 @@ def register_user():
     finally:
         conn.close()
 
+    # Login an existing user.
 def login_user():
-    """Login an existing user."""
     print("\n--- Login ---")
     username = input("Username: ")
     password = getpass("Password: ")
@@ -65,7 +63,6 @@ def login_user():
         conn.close()
 
 def is_admin(user_id):
-    """Check if user is admin."""
     try:
         conn = sqlite3.connect('data/task_manager.db')
         cursor = conn.cursor()

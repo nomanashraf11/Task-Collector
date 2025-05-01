@@ -19,14 +19,12 @@ def create_connection():
     return conn
 
 def initialize_database():
-    """Initialize the database with required tables."""
     conn = create_connection()
     
     if conn is not None:
         try:
             cursor = conn.cursor()
             
-            # Create users table
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,7 +35,6 @@ def initialize_database():
                 )
             ''')
             
-            # Create tasks table
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS tasks (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
