@@ -1,5 +1,4 @@
 def display_menu(user, is_admin=False):
-    """Display the appropriate menu based on user role."""
     print("\n--- Task Manager ---")
     print(f"Logged in as: {user.username} ({'Admin' if is_admin else 'User'})")
     print("\n1. View Tasks")
