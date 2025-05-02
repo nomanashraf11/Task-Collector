@@ -8,7 +8,6 @@ def display_menu(user, is_admin=False):
     if is_admin:
         print("5. View All Users' Tasks")
     print("0. Logout")
-    
     try:
         choice = int(input("\nEnter your choice: "))
         return choice

@@ -97,12 +97,13 @@ def update_task(user_id, is_admin=False):
                 return
         
         print("\nLeave field blank to keep current value.")
-        title = input("New Title: ")
-        description = input("New Description: ")
-        priority = input("New Priority (1: High, 2: Medium, 3: Low): ")
-        due_date = input("New Due Date (YYYY-MM-DD): ")
-        status = input("New Status (Pending/In Progress/Completed): ")
-        project = input("New Project: ")
+        print("\nLeave field blank to keep current value.")
+        title = input(f"New Title [{current[0]}]: ") or current[0]
+        description = input(f"New Description [{current[1]}]: ") or current[1]
+        priority = input(f"New Priority (1: High, 2: Medium, 3: Low) [{current[2]}]: ") or current[2]
+        due_date = input(f"New Due Date (YYYY-MM-DD) [{current[3]}]: ") or current[3]
+        status = input(f"New Status (Pending/In Progress/Completed) [{current[4]}]: ") or current[4]
+        project = input(f"New Project [{current[5]}]: ") or current[5]
         
 
         cursor.execute(
