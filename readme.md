@@ -8,7 +8,7 @@ A simple command-line-based task manager tool built with Python. This tool helps
 - View all tasks
 - Mark tasks as complete
 - Delete tasks
-- Persistent task storage (if implemented)
+- Persistent task storage
 
 ## Requirements
 
