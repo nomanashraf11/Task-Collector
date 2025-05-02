@@ -3,14 +3,12 @@ from sqlite3 import Error
 import os
 
 def create_connection():
-    """Create a database connection to the SQLite database."""
     conn = None
     try:
-        # Ensure the data directory exists
+   
         if not os.path.exists('data'):
             os.makedirs('data')
         
-        # Connect to the SQLite database file
         conn = sqlite3.connect('data/task_manager.db')
         return conn
     except Error as e:

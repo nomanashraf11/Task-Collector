@@ -3,7 +3,7 @@ from datetime import datetime
 from models import Task
 
 def create_task(user_id):
-    """Create a new task."""
+
     print("\n--- Create New Task ---")
     title = input("Title: ")
     description = input("Description: ")
@@ -32,7 +32,7 @@ def create_task(user_id):
         conn.close()
 
 def view_tasks(user_id, is_admin=False):
-    """View tasks for a user or all tasks if admin."""
+
     try:
         conn = sqlite3.connect('data/task_manager.db')
         cursor = conn.cursor()
@@ -75,7 +75,7 @@ def view_tasks(user_id, is_admin=False):
         conn.close()
 
 def update_task(user_id, is_admin=False):
-    """Update an existing task."""
+  
     tasks = view_tasks(user_id, is_admin)
     if not tasks:
         return
@@ -86,7 +86,7 @@ def update_task(user_id, is_admin=False):
         conn = sqlite3.connect('data/task_manager.db')
         cursor = conn.cursor()
         
-        # Check if task exists and belongs to user (unless admin)
+
         if not is_admin:
             cursor.execute(
                 "SELECT id FROM tasks WHERE id = ? AND user_id = ?",
@@ -104,14 +104,14 @@ def update_task(user_id, is_admin=False):
         status = input("New Status (Pending/In Progress/Completed): ")
         project = input("New Project: ")
         
-        # Get current values
+
         cursor.execute(
             "SELECT title, description, priority, due_date, status, project FROM tasks WHERE id = ?",
             (task_id,)
         )
         current = cursor.fetchone()
         
-        # Prepare update
+     
         updates = []
         params = []
         
@@ -153,7 +153,7 @@ def update_task(user_id, is_admin=False):
             
         params.append(task_id)
         
-        # Build and execute update query
+   
         query = f"UPDATE tasks SET {', '.join(updates)} WHERE id = ?"
         cursor.execute(query, params)
         
@@ -167,7 +167,6 @@ def update_task(user_id, is_admin=False):
         conn.close()
 
 def delete_task(user_id, is_admin=False):
-    """Delete a task."""
     tasks = view_tasks(user_id, is_admin)
     if not tasks:
         return
@@ -178,7 +177,7 @@ def delete_task(user_id, is_admin=False):
         conn = sqlite3.connect('data/task_manager.db')
         cursor = conn.cursor()
         
-        # Check if task exists and belongs to user (unless admin)
+# Check if task exists and belongs to user (unless admin)
         if not is_admin:
             cursor.execute(
                 "SELECT id FROM tasks WHERE id = ? AND user_id = ?",

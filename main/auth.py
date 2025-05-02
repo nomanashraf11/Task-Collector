@@ -33,7 +33,7 @@ def register_user():
     finally:
         conn.close()
 
-    # Login an existing user.
+
 def login_user():
     print("\n--- Login ---")
     username = input("Username: ")
