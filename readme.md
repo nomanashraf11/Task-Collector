@@ -19,7 +19,7 @@ A simple command-line-based task manager tool built with Python. This tool helps
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/task-manager-tool.git
+git clone https://github.com/nomanashraf11/Task-Collector.git
 cd task-manager-tool
 python3 main.py
 ```
