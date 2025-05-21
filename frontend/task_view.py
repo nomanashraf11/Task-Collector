@@ -20,9 +20,9 @@ class TaskFrame(ttk.Frame):
          
 
     def refresh_tasks(self):
-        # Only call this when user is logged in!
+         
         if self.controller.current_user is None:
-            return  # Safety check
+            return   
         for i in self.tree.get_children():
             self.tree.delete(i)
         tasks = view_tasks(self.controller.current_user.id)

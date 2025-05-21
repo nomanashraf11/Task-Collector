@@ -8,10 +8,10 @@ class LoginFrame(ttk.Frame):
         self.create_widgets()
     
     def create_widgets(self):
-        # Header
+         
         ttk.Label(self, text="Task Manager Login", style='Header.TLabel').pack(pady=20)
         
-        # Form
+      
         form = ttk.Frame(self)
         form.pack(pady=20, padx=50, fill=tk.X)
         
@@ -25,7 +25,7 @@ class LoginFrame(ttk.Frame):
         
         form.columnconfigure(1, weight=1)
         
-        # Buttons
+      
         buttons = ttk.Frame(self)
         buttons.pack(pady=20)
         
