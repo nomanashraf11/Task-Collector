@@ -9,9 +9,10 @@ class TaskManagerApp(tk.Tk):
     def __init__(self):
         super().__init__()
         initialize_database()
-        self.title("Task Manager")
+        self.title("Task Collector")
         self.geometry("700x500")
         self.current_user = None
+        self.user_role = None  
 
         self.frames = {}
         container = ttk.Frame(self)
@@ -27,7 +28,6 @@ class TaskManagerApp(tk.Tk):
         frame.tkraise()
         if name == "TaskFrame" and self.current_user is not None:
             frame.refresh_tasks()
-
 
 if __name__ == "__main__":
     app = TaskManagerApp()

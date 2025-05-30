@@ -6,6 +6,7 @@ class User:
     username: str
     email: str
     is_admin: bool = False
+    is_manager: bool = False  # New field after alpha version
 
 @dataclass
 class Task:
@@ -16,5 +17,6 @@ class Task:
     due_date: str
     status: str
     user_id: int
+    assigned_by: int
     project: str = ""
     created_at: str = None
