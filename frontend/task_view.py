@@ -171,7 +171,7 @@ class TaskFrame(ttk.Frame):
             prio = int(prio_entry.get())
             due = due_entry.get()
             status = status_entry.get()
-            if update_task(task_id, title, desc, prio, due, status, self.controller.current_user.id):
+            if update_task(task_id, title, desc, prio, due, status,  current_user=self.controller.current_user,):
                 self.refresh_tasks()
                 win.destroy()
             else:

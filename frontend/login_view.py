@@ -25,7 +25,7 @@ class LoginFrame(ttk.Frame):
         content.columnconfigure(0, weight=1)
 
         # Title of the page
-        ttk.Label(content, text="Login", font=("Arial", 20, "bold")).grid(row=0, column=0, columnspan=2, pady=(0, 20))
+        ttk.Label(content, text="TASK COLLECTOR(LOGIN)", font=("Arial", 20, "bold")).grid(row=0, column=0, columnspan=2, pady=(0, 20))
 
         # Username
         ttk.Label(content, text="Username:", font=("Arial", 12)).grid(row=1, column=0, sticky="e", padx=5, pady=5)

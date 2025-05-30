@@ -19,7 +19,7 @@ class RegisterFrame(ttk.Frame):
         
   
                  
-        ttk.Label(center_frame, text="Register", font=("Arial", 16)).grid(
+        ttk.Label(center_frame, text="TASK COLLECTOR (Register)", font=("Arial", 16)).grid(
             row=0, column=0, columnspan=2, pady=(0, 20))
         
       

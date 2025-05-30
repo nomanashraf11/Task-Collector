@@ -109,15 +109,19 @@ def update_task(
     priority: int,
     due_date: str,
     status: str,
-    current_user: User,
+    current_user: User,  # This should be a User object
     project: str = ""
 ) -> bool:
     """Update task with permission checks"""
     try:
+        # Type checking for current_user
+        if not isinstance(current_user, User):
+            print("Error: current_user must be a User object")
+            return False
+
         conn = create_connection()
         cursor = conn.cursor()
         
-
         cursor.execute('''
             SELECT user_id, assigned_by FROM tasks WHERE id = ?
         ''', (task_id,))
@@ -156,7 +160,6 @@ def update_task(
         return False
     finally:
         conn.close()
-
 def delete_task(task_id: int, current_user: User) -> bool:
     """Delete task with permission checks"""
     try:
