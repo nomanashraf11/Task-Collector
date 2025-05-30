@@ -19,26 +19,32 @@ def create_task(title, description, priority, due_date, status, user_id, project
     finally:
         conn.close()
 
-def view_tasks(user_id, is_admin=False):
-    try:
-        conn = sqlite3.connect('data/task_manager.db')
-        cursor = conn.cursor()
-        if is_admin:
-            cursor.execute('''
-                SELECT id, title, description, priority, due_date, status, user_id, project, created_at
-                FROM tasks ORDER BY due_date
-            ''')
+def view_tasks(user_id, is_admin=False, is_manager=False):
+    conn = sqlite3.connect('data/task_manager.db')
+    cursor = conn.cursor()
+    if is_admin:
+        cursor.execute('''
+            SELECT id, title, description, priority, due_date, status, user_id, project, created_at
+            FROM tasks ORDER BY due_date
+        ''')
+    elif is_manager:
+        # Find user IDs managed by this manager
+        cursor.execute("SELECT id FROM users WHERE manager_id = ?", (user_id,))
+        managed_ids = [row[0] for row in cursor.fetchall()]
+        if managed_ids:
+            placeholders = ",".join("?" * len(managed_ids))
+            cursor.execute(f"SELECT id, title, description, priority, due_date, status, user_id, project, created_at FROM tasks WHERE user_id IN ({placeholders}) ORDER BY due_date", managed_ids)
         else:
-            cursor.execute('''
-                SELECT id, title, description, priority, due_date, status, user_id, project, created_at
-                FROM tasks WHERE user_id = ? ORDER BY due_date
-            ''', (user_id,))
-        return cursor.fetchall()
-    except Exception as e:
-        print(f"Error viewing tasks: {e}")
-        return []
-    finally:
-        conn.close()
+            return []
+    else:
+        cursor.execute('''
+            SELECT id, title, description, priority, due_date, status, user_id, project, created_at
+            FROM tasks WHERE user_id = ? ORDER BY due_date
+        ''', (user_id,))
+    result = cursor.fetchall()
+    conn.close()
+    return result
+
 
 def update_task(task_id, title, description, priority, due_date, status, user_id, project=""):
     try:
@@ -69,3 +75,15 @@ def delete_task(task_id):
         return False
     finally:
         conn.close()
+        
+def view_users():
+    
+    conn = sqlite3.connect('data/task_manager.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, username, email, is_admin FROM users")
+    rows = cursor.fetchall()
+    conn.close()
+    users = [User(r[0], r[1], r[2], bool(r[3])) for r in rows]
+    return users
+        
+

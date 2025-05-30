@@ -15,7 +15,9 @@ def initialize_database():
             username TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
-            is_admin INTEGER DEFAULT 0
+            is_admin INTEGER DEFAULT 0,
+            role TEXT DEFAULT 'user',
+            manager_id INTEGER DEFAULT NULL
         )
     ''')
     cursor.execute('''

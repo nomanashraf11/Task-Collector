@@ -1,6 +1,6 @@
 # Task Manager Tool
 
-A simple command-line-based task manager tool built with Python. This tool helps you manage your daily tasks efficiently.
+A simple UI Based task manager tool built with Python. This tool helps you manage your daily tasks efficiently.
 
 ## Features
 

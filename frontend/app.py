@@ -4,19 +4,21 @@ from backend.database import initialize_database
 from frontend.login_view import LoginFrame
 from frontend.register_view import RegisterFrame
 from frontend.task_view import TaskFrame
+from frontend.user_list_view import UserListView
+from frontend.manager_view import ManagerView
 
 class TaskManagerApp(tk.Tk):
     def __init__(self):
         super().__init__()
         initialize_database()
         self.title("Task Manager")
-        self.geometry("700x500")
+        self.geometry("800x600")
         self.current_user = None
-
         self.frames = {}
         container = ttk.Frame(self)
         container.pack(fill=tk.BOTH, expand=True)
-        for F in (LoginFrame, RegisterFrame, TaskFrame):
+        # Map class name to frame for easy switching
+        for F in (LoginFrame, RegisterFrame, TaskFrame, UserListView, ManagerView):
             frame = F(parent=container, controller=self)
             self.frames[F.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")
@@ -25,9 +27,8 @@ class TaskManagerApp(tk.Tk):
     def show_frame(self, name):
         frame = self.frames[name]
         frame.tkraise()
-        if name == "TaskFrame" and self.current_user is not None:
+        if hasattr(frame, "refresh_tasks"):
             frame.refresh_tasks()
-
 
 if __name__ == "__main__":
     app = TaskManagerApp()

@@ -6,6 +6,8 @@ class User:
     username: str
     email: str
     is_admin: bool = False
+    role: str = "user"
+    manager_id: int = None
 
 @dataclass
 class Task:

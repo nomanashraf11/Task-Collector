@@ -1,16 +1,16 @@
 import sqlite3
 from backend.models import User
 
-def register_user(username, email, password):
+def register_user(username, email, password, role='user', manager_id=None):
     try:
         conn = sqlite3.connect('data/task_manager.db')
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO users (username, password, email) VALUES (?, ?, ?)",
-            (username, password, email)
+            "INSERT INTO users (username, password, email, role, manager_id) VALUES (?, ?, ?, ?, ?)",
+            (username, password, email, role, manager_id)
         )
         conn.commit()
-        return User(cursor.lastrowid, username, email)
+        return User(cursor.lastrowid, username, email, False, role, manager_id)
     except sqlite3.IntegrityError:
         return None
     finally:
@@ -21,12 +21,12 @@ def login_user(username, password):
         conn = sqlite3.connect('data/task_manager.db')
         cursor = conn.cursor()
         cursor.execute(
-            "SELECT id, username, password, email, is_admin FROM users WHERE username = ?",
+            "SELECT id, username, password, email, is_admin, role, manager_id FROM users WHERE username = ?",
             (username,)
         )
         user_data = cursor.fetchone()
         if user_data and user_data[2] == password:
-            return User(user_data[0], user_data[1], user_data[3], bool(user_data[4]))
+            return User(user_data[0], user_data[1], user_data[3], bool(user_data[4]), user_data[5], user_data[6])
         return None
     finally:
         conn.close()
